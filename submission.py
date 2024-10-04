@@ -142,15 +142,15 @@ def main():
     
     # Set the size limit directly in the file uploader
     uploaded_file = st.file_uploader("Upload your PDF file (max 80MB)", type=["pdf"], 
-                                     help="Only PDF files allowed (max 80MB)", 
-                                     max_size=80 * 1024 * 1024)
+                                     help="Only PDF files allowed (max 5MB)", 
+                                     max_size=5 * 1024 * 1024)
 
     submission_success = False
     ref_id = None
 
     # Check if file is too large
-    if uploaded_file is not None and uploaded_file.size > 80 * 1024 * 1024:
-        st.error("File is too large! Please upload a file smaller than 80MB.")
+    if uploaded_file is not None and uploaded_file.size > 5 * 1024 * 1024:
+        st.error("File is too large! Please upload a file smaller than 5MB.")
     
     if st.button("Submit"):
         if name and roll_number and uploaded_file:
