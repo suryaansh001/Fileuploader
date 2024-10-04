@@ -3,9 +3,6 @@ import streamlit as st
 import pymysql
 import uuid
 
-# Set the maximum file size to 10MB globally
-st.set_option('server.maxUploadSize', 10)
-
 # MySQL connection details from secrets.toml
 db_config = {
     "charset": "utf8mb4",
@@ -57,18 +54,18 @@ def main():
     name = st.text_input("Name")
     roll_number = st.text_input("Roll Number")
     
-    # Set the size limit directly in the file uploader to 10MB
-    uploaded_file = st.file_uploader("Upload your PDF file (max 10MB)", type=["pdf"], 
-                                     help="Only PDF files allowed (max 10MB)", 
-                                     max_size=10 * 1024 * 1024)
+    # File uploader without max_size (since max_size is not supported in older Streamlit versions)
+    uploaded_file = st.file_uploader("Upload your PDF file (max 2MB)", type=["pdf"], help="Only PDF files allowed.")
+
+    # Check file size manually (if file is uploaded)
+    if uploaded_file is not None:
+        if uploaded_file.size > 2 * 1024 * 1024:  # 10MB limit
+            st.error("File is too large! Please upload a file smaller than 2MB.")
+            return  # Stop further execution if the file is too large
 
     submission_success = False
     ref_id = None
 
-    # Check if file is too large
-    if uploaded_file is not None and uploaded_file.size > 10 * 1024 * 1024:
-        st.error("File is too large! Please upload a file smaller than 10MB.")
-    
     if st.button("Submit"):
         if name and roll_number and uploaded_file:
             ref_id = save_submission(name, roll_number, uploaded_file)
@@ -92,3 +89,4 @@ if not os.path.exists("uploads"):
 
 if __name__ == "__main__":
     main()
+
