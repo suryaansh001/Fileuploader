@@ -79,5 +79,5 @@ def main():
 if not os.path.exists("uploads"):
     os.makedirs("uploads")
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     main()
