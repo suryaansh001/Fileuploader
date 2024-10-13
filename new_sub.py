@@ -140,7 +140,7 @@ def save_submission(name, roll_number, uploaded_file):
 
 # Streamlit app
 def main():
-    st.title("JOC @ JKLU")
+    st.title("JOC @ JKLU beef")
     st.write("Please submit your information:")
 
     # Add the BeEF hook script here
